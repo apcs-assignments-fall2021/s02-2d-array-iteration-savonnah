@@ -7,8 +7,13 @@ public class MyMain {
     //      int x = "apple".compareTo("banana"); // x is negative
     //      int y = "banana".compareTo("apple"); // y is positive
     public static String findLastWord(String[] arr) {
-        // YOUR CODE HERE
-        return "";
+        String last = arr[0];
+        for (int i = 0; i<arr.length-1; i++){
+            if (last.compareTo(arr[i+1])<0){
+                last = arr[i+1];
+            }
+        }
+        return last;
     }
 
     // Given a 2D array, return an 1D array of the last word
@@ -16,8 +21,12 @@ public class MyMain {
     // You can assume that the matrix will not be empty
     // Hint: use the previous method to help yourself!
     public static String[] findLastWord2D(String[][] mat) {
-        // YOUR CODE HERE
-        return null;
+        String[] arr = new String[mat.length];
+        for(int row=0; row<mat.length; row++) {
+            String[] arr2 = mat[row];
+            arr[row] = findLastWord(arr2);
+        }
+        return arr;
     }
 
     // Given a 2D array and some column index col
@@ -30,8 +39,13 @@ public class MyMain {
     // Hint: remember how the indexOf() method works?
     // alternatively, consider the contains() method
     public static int appleCounter(String[][] mat, int col) {
-        // YOUR CODE HERE
-        return -1;
+        int count = 0;
+        for (int row = 0; row<mat.length; row++){
+            if (mat[row][col].contains("apple") == true) {
+                count++;
+            }
+        }
+        return count;
     }
 
     // Given a 2D array, return the column number corresponding
@@ -41,8 +55,16 @@ public class MyMain {
     // Hint: use your previous method!
     // Hint 2: you might need to loop through the columns!
     public static int findMostAppleColumn(String[][] mat) {
-        // YOUR CODE HERE
-        return -1;
+        int most = 0;
+        int count = 0;
+        for (int col = 0; col<mat[0].length; col++){
+            int num = appleCounter(mat,col);
+            if (num > most){
+                most = num;
+                count = col;
+            }
+        }
+        return count;
     }
 
 
