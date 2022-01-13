@@ -72,7 +72,7 @@ public class MyMain {
     // The first row of numbers has a single number, 1
     // Each subsequent row has one more number than the previous row
     // The first and last numbers of every row are 1
-    // All other numbers’ values are calculated by adding together the two numbers above that number
+    // All other numbers values are calculated by adding together the two numbers above that number
 
     // Here are some examples:
     // pascalTriangle(2) =>
@@ -92,8 +92,21 @@ public class MyMain {
     //       from top to bottom
 
     public static int[][] pascal(int height) {
-        // YOUR CODE HERE
-        return null;
+        int col = 0;
+        int [][]arr = new int [height][height];
+        for (int row = 0; row<arr.length; row++){
+            arr[row][col] = 1;
+        }
+        for (int i = 0; i<arr.length; i++ ){ // all the 1 diagonally
+            arr[i][i] = 1;
+        }
+        //go through each row and column
+        for (int row1 = 2; row1<arr.length; row1++){
+            for (int col2 = 1; col2<arr[0].length; col2++){
+                arr[row1][col2] = arr[row1-1][col2]+ arr[row1-1][col2-1];
+            }
+        }
+        return arr;
     }
 
 
@@ -129,8 +142,59 @@ public class MyMain {
     // * do you see any pattern for the row and col indexes for a diagonal?
     // * can you use a for loop that goes through that pattern?
     public static boolean isMagic(int[][] mat) {
-        // YOUR CODE HERE
-        return false;
+        int value = 0;
+        int row = 0;
+        for (int col2 = 0; col2<mat[0].length; col2++){
+            value+=mat[row][col2];
+        }
+        //add up all value of row
+        int temp1 = 0;
+        for (int i = 0; i<mat.length; i++){
+            for (int col3 = 0; col3<mat[0].length; col3++){
+                temp1+=mat[i][col3];
+            }
+            if (temp1!=value){
+                return false;
+            }
+            temp1 = 0;
+        }
+        //add up all of col
+        int temp2 = 0;
+        for (int j = 0; j<mat.length; j++){
+            for (int row1 = 0; row1<mat[0].length; row1++){
+                temp2+=mat[row1][j];
+            }
+            if (temp2!=value){
+                return false;
+            }
+            temp2 = 0;
+        }
+        //diagonal from left
+
+        int temp3 = 0;
+        for (int i = 0; i<mat.length; i++ ){ //  diagonally
+            temp3+=mat[i][i];
+        }
+        if (temp3!=value){
+            return false;
+        }
+
+        //have 2 for loop check and see if all other rows add up to value
+        //if any of those dont equal value = not magic
+        //check to see if col add up to value another 2 for loop
+        //each diagonal = take one for loop
+        int row3=0;
+        int temp = 0;
+        for (int i = mat.length-1; i>=0; i-- ){ //  diagonally
+            temp+=mat[row3][i];
+            row3++;
+        }
+        if (temp!=value){
+            return false;
+        }
+
+
+        return true;
     }
 
 
